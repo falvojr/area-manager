@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Area Manager</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="label_app">Area Manager</string>
+    <string name="label_descricao_app">Aplicativo Android para o gerenciamento de reservas de uma área de lazer. Este projeto será apresentado como Trabalho de Conclusão de Curso (TCC) do desenvolvedor, testador e meu ídolo Cleber Dias.</string>
+    <string name="label_versao_app">Versão 1.0</string>
+    <string name="label_sobre">Sobre</string>
+    <string name="label_descricao_sobre">Um aplicativo Android com o objetivo de gerenciar de forma simples e ágil reservas de áreas de lazer ou afins.\n\nCleber Dias e Venilton Júnior\nCopyright 2014 Liga da Zueira. Todos os direitos reservados.</string>
+    
+    <string name="action_sobre">Sobre</string>
+    <string name="action_entrar">Entrar</string>
+    <string name="action_sair">Sair</string>
 
 </resources>
