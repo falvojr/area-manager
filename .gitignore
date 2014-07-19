@@ -29,6 +29,9 @@ proguard/
 .checkstyle
 .apt_generated
 
+# Android
+project.properties
+
 # Other
 .DS_Store
 tmp
