@@ -63,6 +63,22 @@ public class CalendarioActivity extends ActionBarActivity {
 
 	}
 
+	@SuppressLint("InflateParams")
+	@Click(R.id.btnLegendas)
+	void actionLegendas() {
+		// Infla o layout do fragmento com as legendas:
+		View layout = this.getLayoutInflater().inflate(R.layout.fragment_legenda_dialog, null);
+
+		// Cria e apresenta o Alert:
+		new AlertDialog.Builder(this).setTitle(this.getString(R.string.label_legenda)).setView(layout).setIcon(android.R.drawable.ic_dialog_info)
+		.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		}).create().show();
+	}
+
 	private Reserva buscarReservaPorData(Date data) {
 		try {
 			List<Reserva> reservasDataUltimoClick = CalendarioActivity.this.reservaDao.queryForEq("data", data);
@@ -78,7 +94,7 @@ public class CalendarioActivity extends ActionBarActivity {
 
 		this.caldroidFragment = new CaldroidFragment();
 
-		this.marcarDatasComReserva();
+		this.marcarReservasCalendario();
 
 		if (savedInstanceState != null) {
 			this.caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
@@ -92,64 +108,24 @@ public class CalendarioActivity extends ActionBarActivity {
 			this.getSupportFragmentManager().beginTransaction().replace(R.id.calendario, this.caldroidFragment).commit();
 		}
 
-		this.caldroidFragment.setCaldroidListener(new CaldroidListener() {
-
-			@Override
-			public void onSelectDate(Date date, View view) {
-				this.deselecionarDataClicadaAnteriormente();
-
-				// Configura a visibilidade dos itens da ActionBar:
-				Boolean isDisponivel = CalendarioActivity.this.buscarReservaPorData(date) == null;
-				CalendarioActivity.this.menuItemIncluir.setVisible(isDisponivel);
-				CalendarioActivity.this.menuItemEditar.setVisible(!isDisponivel);
-				CalendarioActivity.this.menuItemExcluir.setVisible(!isDisponivel);
-
-				// Marca o item selecionado:
-				CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_disponivel, date);
-				CalendarioActivity.this.caldroidFragment.refreshView();
-
-				// Armazena a data selecionada:
-				CalendarioActivity.this.dataSelecionada = date;
-			}
-
-			private void deselecionarDataClicadaAnteriormente() {
-				Reserva reserva = CalendarioActivity.this.buscarReservaPorData(CalendarioActivity.this.dataSelecionada);
-
-				// Configura o background da data selecionada no último clique, já que ela será desmarcada após este método:
-				if (reserva == null) {
-					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_white, CalendarioActivity.this.dataSelecionada);
-				} else {
-					if (StatusPagamentoEnum.PAGO.equals(reserva.getStatusPagamento())) {
-						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_pago, reserva.getData());
-					} else {
-						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_nao_pago, reserva.getData());
-					}
-				}
-			}
-
-			@Override
-			public void onLongClickDate(Date date, View view) {
-
-			}
-
-		});
+		this.caldroidFragment.setCaldroidListener(new AMCaldroidListener());
 
 		this.dataSelecionada = new Date();
-		this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_disponivel, this.dataSelecionada);
+		this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_selecionada, this.dataSelecionada);
 	}
 
-	private void marcarDatasComReserva() {
+	private void marcarReservasCalendario() {
 		try {
 			HashMap<Date, Integer> mapaReservas = new HashMap<Date, Integer>();
 
 			List<Reserva> reservasPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.PAGO);
 			for(Reserva reservaPaga : reservasPagas) {
-				mapaReservas.put(reservaPaga.getData(), R.color.areamanager_pago);
+				mapaReservas.put(reservaPaga.getData(), R.color.areamanager_paga);
 			}
 
 			List<Reserva> reservasNaoPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.NAO_PAGO);
 			for(Reserva reservaNaoPaga : reservasNaoPagas) {
-				mapaReservas.put(reservaNaoPaga.getData(), R.color.areamanager_nao_pago);
+				mapaReservas.put(reservaNaoPaga.getData(), R.color.areamanager_nao_paga);
 			}
 
 			this.caldroidFragment.setBackgroundResourceForDates(mapaReservas);
@@ -170,19 +146,45 @@ public class CalendarioActivity extends ActionBarActivity {
 		}
 	}
 
-	@SuppressLint("InflateParams")
-	@Click(R.id.btnLegendas)
-	void actionLegendas() {
-		// Infla o layout do fragmento com as legendas:
-		View layout = this.getLayoutInflater().inflate(R.layout.fragment_legenda_dialog, null);
+	private final class AMCaldroidListener extends CaldroidListener {
 
-		// Cria e apresenta o Alert:
-		new AlertDialog.Builder(this).setTitle(this.getString(R.string.label_legenda)).setView(layout).setIcon(android.R.drawable.ic_dialog_info)
-		.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
+		@Override
+		public void onSelectDate(Date date, View view) {
+			this.selecionarData(date);
+		}
+
+		@Override
+		public void onLongClickDate(Date date, View view) {
+			this.selecionarData(date);
+		}
+
+		private void selecionarData(Date date) {
+			// Reaplica o background da data selecionada no último clique, pois ela será atualizada neste método:
+			Reserva reservaClickAnterior = CalendarioActivity.this.buscarReservaPorData(CalendarioActivity.this.dataSelecionada);
+			if (reservaClickAnterior == null) {
+				CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_white, CalendarioActivity.this.dataSelecionada);
+			} else {
+				if (StatusPagamentoEnum.PAGO.equals(reservaClickAnterior.getStatusPagamento())) {
+					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_paga, reservaClickAnterior.getData());
+				} else {
+					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_nao_paga, reservaClickAnterior.getData());
+				}
 			}
-		}).create().show();
+
+			// Configura a visibilidade dos itens da ActionBar:
+			Boolean isDisponivel = CalendarioActivity.this.buscarReservaPorData(date) == null;
+			CalendarioActivity.this.menuItemIncluir.setVisible(isDisponivel);
+			CalendarioActivity.this.menuItemEditar.setVisible(!isDisponivel);
+			CalendarioActivity.this.menuItemExcluir.setVisible(!isDisponivel);
+
+			// Marca o item selecionado:
+			CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_selecionada, date);
+			CalendarioActivity.this.caldroidFragment.refreshView();
+
+			// Armazena a data selecionada:
+			CalendarioActivity.this.dataSelecionada = date;
+		}
+
 	}
+
 }
