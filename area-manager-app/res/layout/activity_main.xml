@@ -9,7 +9,7 @@
     tools:context="cleber.dias.areamanager.app.MainActivity" >
 
     <TextView
-        android:id="@+id/txtNomeApp"
+        android:id="@+id/lblNomeApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,10 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <cleber.dias.areamanager.ext.TextViewEx
-        android:id="@+id/txtDescricaoApp"
+        android:id="@+id/lblDescricaoApp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNomeApp"
+        android:layout_below="@+id/lblNomeApp"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -29,7 +29,7 @@
         android:id="@+id/btnEntrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtDescricaoApp"
+        android:layout_below="@+id/lblDescricaoApp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/ic_entrar"

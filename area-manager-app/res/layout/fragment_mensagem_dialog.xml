@@ -3,7 +3,6 @@
     android:id="@+id/textview_alert_dialog"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     android:orientation="vertical" >
     
     <cleber.dias.areamanager.ext.TextViewEx
@@ -11,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
 </LinearLayout>

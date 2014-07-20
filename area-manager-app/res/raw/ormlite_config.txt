@@ -1,0 +1,36 @@
+#
+# generated on 2014/07/19 23:16:57
+#
+# --table-start--
+dataClass=cleber.dias.areamanager.db.Reserva
+tableName=tb_reserva
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=data
+# --field-end--
+# --field-start--
+fieldName=cpf
+indexName=reserva_cpf_idx
+# --field-end--
+# --field-start--
+fieldName=nome
+# --field-end--
+# --field-start--
+fieldName=endereco
+# --field-end--
+# --field-start--
+fieldName=telefone
+# --field-end--
+# --field-start--
+fieldName=formaPagamento
+# --field-end--
+# --field-start--
+fieldName=statusPagamento
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

@@ -6,9 +6,17 @@
     <string name="label_versao_app">Versão 1.0</string>
     <string name="label_sobre">Sobre</string>
     <string name="label_descricao_sobre">Um aplicativo Android com o objetivo de gerenciar de forma simples e ágil reservas de áreas de lazer ou afins.\n\nCleber Dias e Venilton Júnior\nCopyright 2014 Liga da Zueira. Todos os direitos reservados.</string>
-    
     <string name="action_sobre">Sobre</string>
     <string name="action_entrar">Entrar</string>
     <string name="action_sair">Sair</string>
+    <string name="action_incluir">Incluir</string>
+    <string name="action_alterar">Alterar</string>
+    <string name="action_excluir">Excluir</string>
+    <string name="label_legenda">Legenda</string>
+    <string name="label_disponivel">Disponível</string>
+    <string name="label_reservada_paga">Reservada (Paga)</string>
+    <string name="label_reservada_nao_paga">Reservada (Não Paga)</string>
+    <string name="action_legendas">Legendas...</string>
+    <string name="label_selecionada">Selecionada</string>
 
 </resources>

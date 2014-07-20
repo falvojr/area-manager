@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblDisponivel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_disponivel"
+        android:gravity="left|center"
+        android:text="@string/label_disponivel"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/lblSelecionada"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_selecionado"
+        android:gravity="left|center"
+        android:text="@string/label_selecionada"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/lblReservadoPago"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_reservado_pago"
+        android:gravity="left|center"
+        android:text="@string/label_reservada_paga"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/lblReservadoNaoPago"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_reservado_nao_pago"
+        android:gravity="left|center"
+        android:text="@string/label_reservada_nao_paga"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>
