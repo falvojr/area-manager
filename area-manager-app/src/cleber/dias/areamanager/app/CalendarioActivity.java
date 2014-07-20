@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
@@ -32,6 +33,8 @@ import com.roomorama.caldroid.CaldroidListener;
 @OptionsMenu(R.menu.calendario)
 public class CalendarioActivity extends ActionBarActivity {
 
+	private static final int REQUEST_CODE_RESERVA = 1;
+
 	@OptionsMenuItem(R.id.action_incluir)
 	MenuItem menuItemIncluir;
 
@@ -50,6 +53,11 @@ public class CalendarioActivity extends ActionBarActivity {
 
 	@OptionsItem(R.id.action_incluir)
 	void actionIncluir() {
+		ReservaActivity_.intent(this).startForResult(REQUEST_CODE_RESERVA);
+	}
+
+	@OnActivityResult(REQUEST_CODE_RESERVA)
+	void onResultReserva(int resultCode) {
 
 	}
 

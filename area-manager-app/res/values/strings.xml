@@ -11,6 +11,9 @@
     <string name="label_reservada_paga">Reservada (Paga)</string>
     <string name="label_reservada_nao_paga">Reservada (Não Paga)</string> 
     <string name="label_selecionada">Selecionada</string>
+    <string name="label_manter_reserva">Manter Reserva</string>
+    <string name="label_forma_pagamento">Formas de Pagamento:</string>
+    <string name="label_status_pagamento">Status do Pagamento:</string>
     
     <string name="action_sobre">Sobre</string>
     <string name="action_entrar">Entrar</string>
@@ -19,5 +22,18 @@
     <string name="action_editar">Editar</string>
     <string name="action_excluir">Excluir</string>
     <string name="action_legendas">Legendas&#8230;</string>
+    
+    <string name="hint_cpf">CPF</string>
+    <string name="hint_nome">Nome</string>
+    <string name="hint_endereco">Endereço</string>
+    <string name="hint_telefone">Telefone</string>
+    
+    <string name="radio_dinheiro">Dinheiro</string>
+    <string name="radio_deposito">Depósito</string>
+    <string name="radio_cheque">Cheque</string>
+    <string name="radio_realizado">Realizado</string>
+    <string name="radio_pendente">Pendente</string>
+    <string name="action_salvar">Salvar</string>
+    <string name="action_cancelar">Cancelar</string>
 
 </resources>
