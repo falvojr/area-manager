@@ -16,7 +16,7 @@ public class Reserva implements Serializable {
 	long data;
 	@DatabaseField(canBeNull=false)
 	long cpf;
-	@DatabaseField
+	@DatabaseField(canBeNull=false)
 	String nome;
 	@DatabaseField
 	String endereco;
