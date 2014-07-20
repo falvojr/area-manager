@@ -10,12 +10,12 @@
     <string name="action_entrar">Entrar</string>
     <string name="action_sair">Sair</string>
     <string name="action_incluir">Incluir</string>
-    <string name="action_alterar">Alterar</string>
+    <string name="action_editar">Editar</string>
     <string name="action_excluir">Excluir</string>
     <string name="label_legenda">Legenda</string>
     <string name="label_disponivel">Disponível</string>
-    <string name="label_reservada_paga">Reservada (Paga)</string>
-    <string name="label_reservada_nao_paga">Reservada (Não Paga)</string>
+    <string name="label_reservada_paga">Reserva (Paga)</string>
+    <string name="label_reservada_nao_paga">Reserva (Não Paga)</string>
     <string name="action_legendas">Legendas...</string>
     <string name="label_selecionada">Selecionada</string>
 

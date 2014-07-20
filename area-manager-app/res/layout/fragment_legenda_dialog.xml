@@ -26,7 +26,7 @@
         android:id="@+id/lblReservadoPago"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_reservado_pago"
+        android:drawableLeft="@drawable/ic_reserva_paga"
         android:gravity="left|center"
         android:text="@string/label_reservada_paga"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -35,7 +35,7 @@
         android:id="@+id/lblReservadoNaoPago"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_reservado_nao_pago"
+        android:drawableLeft="@drawable/ic_reserva_nao_paga"
         android:gravity="left|center"
         android:text="@string/label_reservada_nao_paga"
         android:textAppearance="?android:attr/textAppearanceSmall" />

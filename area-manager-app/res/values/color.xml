@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="pago">#dff0d8</color>
-    <color name="nao_pago">#fcf8e3</color>
+    <color name="areamanager_pago">#dff0d8</color>
+    <color name="areamanager_nao_pago">#f2dede</color>
+    <color name="areamanager_disponivel">#d9edf7</color>
 
 </resources>

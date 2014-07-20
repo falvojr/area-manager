@@ -8,7 +8,9 @@ import java.util.List;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.OrmLiteDao;
 
 import android.annotation.SuppressLint;
@@ -16,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import cleber.dias.areamanager.db.DatabaseHelper;
 import cleber.dias.areamanager.db.Reserva;
@@ -29,12 +32,45 @@ import com.roomorama.caldroid.CaldroidListener;
 @OptionsMenu(R.menu.calendario)
 public class CalendarioActivity extends ActionBarActivity {
 
-	private CaldroidFragment caldroidFragment;
+	@OptionsMenuItem(R.id.action_incluir)
+	MenuItem menuItemIncluir;
+
+	@OptionsMenuItem(R.id.action_editar)
+	MenuItem menuItemEditar;
+
+	@OptionsMenuItem(R.id.action_excluir)
+	MenuItem menuItemExcluir;
 
 	@OrmLiteDao(helper = DatabaseHelper.class, model = Reserva.class)
 	Dao<Reserva, Long> reservaDao;
 
+	private CaldroidFragment caldroidFragment;
+
 	private Date dataSelecionada;
+
+	@OptionsItem(R.id.action_incluir)
+	void actionIncluir() {
+
+	}
+
+	@OptionsItem(R.id.action_editar)
+	void actionEditar() {
+
+	}
+
+	@OptionsItem(R.id.action_excluir)
+	void actionExcluir() {
+
+	}
+
+	private Reserva buscarReservaPorData(Date data) {
+		try {
+			List<Reserva> reservasDataUltimoClick = CalendarioActivity.this.reservaDao.queryForEq("data", data);
+			return reservasDataUltimoClick.isEmpty() ? null : reservasDataUltimoClick.get(0);
+		} catch (SQLException e) {
+			return null;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +78,7 @@ public class CalendarioActivity extends ActionBarActivity {
 
 		this.caldroidFragment = new CaldroidFragment();
 
-		this.marcarReservasCalendario();
+		this.marcarDatasComReserva();
 
 		if (savedInstanceState != null) {
 			this.caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
@@ -60,21 +96,33 @@ public class CalendarioActivity extends ActionBarActivity {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
-				this.remarcarUltimaReservaClicadaCalendario();
-				CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_sky_blue, date);
+				this.deselecionarDataClicadaAnteriormente();
+
+				// Configura a visibilidade dos itens da ActionBar:
+				Boolean isDisponivel = CalendarioActivity.this.buscarReservaPorData(date) == null;
+				CalendarioActivity.this.menuItemIncluir.setVisible(isDisponivel);
+				CalendarioActivity.this.menuItemEditar.setVisible(!isDisponivel);
+				CalendarioActivity.this.menuItemExcluir.setVisible(!isDisponivel);
+
+				// Marca o item selecionado:
+				CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_disponivel, date);
 				CalendarioActivity.this.caldroidFragment.refreshView();
+
+				// Armazena a data selecionada:
 				CalendarioActivity.this.dataSelecionada = date;
 			}
 
-			private void remarcarUltimaReservaClicadaCalendario() {
-				Reserva reservaUltimoClick = CalendarioActivity.this.buscarReservaPorData(CalendarioActivity.this.dataSelecionada);
-				if (reservaUltimoClick == null) {
+			private void deselecionarDataClicadaAnteriormente() {
+				Reserva reserva = CalendarioActivity.this.buscarReservaPorData(CalendarioActivity.this.dataSelecionada);
+
+				// Configura o background da data selecionada no último clique, já que ela será desmarcada após este método:
+				if (reserva == null) {
 					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_white, CalendarioActivity.this.dataSelecionada);
 				} else {
-					if (StatusPagamentoEnum.PAGO.equals(reservaUltimoClick.getStatusPagamento())) {
-						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.pago, reservaUltimoClick.getData());
+					if (StatusPagamentoEnum.PAGO.equals(reserva.getStatusPagamento())) {
+						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_pago, reserva.getData());
 					} else {
-						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.nao_pago, reservaUltimoClick.getData());
+						CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_nao_pago, reserva.getData());
 					}
 				}
 			}
@@ -87,21 +135,21 @@ public class CalendarioActivity extends ActionBarActivity {
 		});
 
 		this.dataSelecionada = new Date();
-		this.caldroidFragment.setSelectedDates(this.dataSelecionada, this.dataSelecionada);
+		this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_disponivel, this.dataSelecionada);
 	}
 
-	private void marcarReservasCalendario() {
+	private void marcarDatasComReserva() {
 		try {
 			HashMap<Date, Integer> mapaReservas = new HashMap<Date, Integer>();
 
 			List<Reserva> reservasPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.PAGO);
 			for(Reserva reservaPaga : reservasPagas) {
-				mapaReservas.put(reservaPaga.getData(), R.color.pago);
+				mapaReservas.put(reservaPaga.getData(), R.color.areamanager_pago);
 			}
 
 			List<Reserva> reservasNaoPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.NAO_PAGO);
 			for(Reserva reservaNaoPaga : reservasNaoPagas) {
-				mapaReservas.put(reservaNaoPaga.getData(), R.color.nao_pago);
+				mapaReservas.put(reservaNaoPaga.getData(), R.color.areamanager_nao_pago);
 			}
 
 			this.caldroidFragment.setBackgroundResourceForDates(mapaReservas);
@@ -119,15 +167,6 @@ public class CalendarioActivity extends ActionBarActivity {
 
 		if (this.caldroidFragment != null) {
 			this.caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
-		}
-	}
-
-	private Reserva buscarReservaPorData(Date data) {
-		try {
-			List<Reserva> reservasDataUltimoClick = CalendarioActivity.this.reservaDao.queryForEq("data", data);
-			return reservasDataUltimoClick.isEmpty() ? null : reservasDataUltimoClick.get(0);
-		} catch (SQLException e) {
-			return null;
 		}
 	}
 
