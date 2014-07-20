@@ -17,10 +17,13 @@ import org.androidannotations.annotations.OrmLiteDao;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import cleber.dias.areamanager.db.DatabaseHelper;
 import cleber.dias.areamanager.db.Reserva;
 import cleber.dias.areamanager.db.StatusPagamentoEnum;
@@ -34,6 +37,8 @@ import com.roomorama.caldroid.CaldroidListener;
 public class CalendarioActivity extends ActionBarActivity {
 
 	private static final int REQUEST_CODE_RESERVA = 1;
+
+	public static final String EXTRA_KEY_DATA_RESERVA = "EXTRA_KEY_DATA_RESERVA";
 
 	@OptionsMenuItem(R.id.action_incluir)
 	MenuItem menuItemIncluir;
@@ -53,22 +58,46 @@ public class CalendarioActivity extends ActionBarActivity {
 
 	@OptionsItem(R.id.action_incluir)
 	void actionIncluir() {
-		ReservaActivity_.intent(this).startForResult(REQUEST_CODE_RESERVA);
-	}
-
-	@OnActivityResult(REQUEST_CODE_RESERVA)
-	void onResultReserva(int resultCode) {
-
+		Intent intent = ReservaActivity_.intent(this).get();
+		intent.putExtra(EXTRA_KEY_DATA_RESERVA, this.dataSelecionada.getTime());
+		this.startActivityForResult(intent, REQUEST_CODE_RESERVA);
 	}
 
 	@OptionsItem(R.id.action_editar)
 	void actionEditar() {
-
+		Intent intent = ReservaActivity_.intent(this).get();
+		intent.putExtra(EXTRA_KEY_DATA_RESERVA, this.dataSelecionada.getTime());
+		this.startActivityForResult(intent, REQUEST_CODE_RESERVA);
 	}
 
 	@OptionsItem(R.id.action_excluir)
 	void actionExcluir() {
+		OnClickListener listenerSim = new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int whichButton) {
+				try {
+					Reserva reserva = CalendarioActivity.this.buscarReservaPorData(CalendarioActivity.this.dataSelecionada);
+					CalendarioActivity.this.reservaDao.delete(reserva);
+					CalendarioActivity.this.apresentarMensagemExclusao();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		new AlertDialog.Builder(this).setTitle(this.getString(R.string.label_confirmacao)).setMessage(this.getString(R.string.label_mensagem_excluir))
+		.setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton(android.R.string.yes, listenerSim).setNegativeButton(android.R.string.no, null)
+		.show();
+	}
 
+	@OnActivityResult(REQUEST_CODE_RESERVA)
+	void onResultReserva(int resultCode) {
+		if (RESULT_OK == resultCode) {
+			Toast.makeText(this, this.getString(R.string.label_mensagem_ok), Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void apresentarMensagemExclusao() {
+		Toast.makeText(this, CalendarioActivity.this.getString(R.string.label_mensagem_exclusao), Toast.LENGTH_LONG).show();
 	}
 
 	@SuppressLint("InflateParams")
@@ -89,9 +118,10 @@ public class CalendarioActivity extends ActionBarActivity {
 
 	private Reserva buscarReservaPorData(Date data) {
 		try {
-			List<Reserva> reservasDataUltimoClick = CalendarioActivity.this.reservaDao.queryForEq("data", data);
+			List<Reserva> reservasDataUltimoClick = this.reservaDao.queryForEq("data", data.getTime());
 			return reservasDataUltimoClick.isEmpty() ? null : reservasDataUltimoClick.get(0);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -126,14 +156,14 @@ public class CalendarioActivity extends ActionBarActivity {
 		try {
 			HashMap<Date, Integer> mapaReservas = new HashMap<Date, Integer>();
 
-			List<Reserva> reservasPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.PAGO);
-			for(Reserva reservaPaga : reservasPagas) {
-				mapaReservas.put(reservaPaga.getData(), R.color.areamanager_paga);
+			List<Reserva> reservasPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.PAGO.getId());
+			for (Reserva reservaPaga : reservasPagas) {
+				mapaReservas.put(new Date(reservaPaga.getData()), R.color.areamanager_paga);
 			}
 
-			List<Reserva> reservasNaoPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.NAO_PAGO);
-			for(Reserva reservaNaoPaga : reservasNaoPagas) {
-				mapaReservas.put(reservaNaoPaga.getData(), R.color.areamanager_nao_paga);
+			List<Reserva> reservasNaoPagas = this.reservaDao.queryForEq("statusPagamento", StatusPagamentoEnum.NAO_PAGO.getId());
+			for (Reserva reservaNaoPaga : reservasNaoPagas) {
+				mapaReservas.put(new Date(reservaNaoPaga.getData()), R.color.areamanager_nao_paga);
 			}
 
 			this.caldroidFragment.setBackgroundResourceForDates(mapaReservas);
@@ -172,10 +202,11 @@ public class CalendarioActivity extends ActionBarActivity {
 			if (reservaClickAnterior == null) {
 				CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_white, CalendarioActivity.this.dataSelecionada);
 			} else {
-				if (StatusPagamentoEnum.PAGO.equals(reservaClickAnterior.getStatusPagamento())) {
-					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_paga, reservaClickAnterior.getData());
+				if (StatusPagamentoEnum.PAGO.getId() == reservaClickAnterior.getStatusPagamento()) {
+					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_paga, new Date(reservaClickAnterior.getData()));
 				} else {
-					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_nao_paga, reservaClickAnterior.getData());
+					CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_nao_paga,
+							new Date(reservaClickAnterior.getData()));
 				}
 			}
 

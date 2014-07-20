@@ -5,9 +5,9 @@
     <LinearLayout style="@style/Form" >
 
         <TextView
+            android:id="@+id/lblTituloReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_manter_reserva"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <View style="@style/Separator" />
@@ -63,6 +63,7 @@
             android:id="@+id/lblFormasPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:paddingTop="10dp"
             android:text="@string/label_forma_pagamento" />
 
@@ -76,7 +77,6 @@
                 android:id="@+id/rdoDinheiro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="@string/radio_dinheiro" />
 
             <RadioButton
@@ -96,6 +96,7 @@
             android:id="@+id/lblStatusPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:paddingTop="10dp"
             android:text="@string/label_status_pagamento" />
 
@@ -122,7 +123,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right"
+            android:gravity="left"
             android:orientation="horizontal"
             android:paddingTop="15dp" >
 
@@ -130,13 +131,13 @@
                 android:id="@+id/btnSalvar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_cancelar" />
+                android:text="@string/action_salvar" />
 
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_salvar" />
+                android:text="@string/action_cancelar" />
         </LinearLayout>
     </LinearLayout>
 

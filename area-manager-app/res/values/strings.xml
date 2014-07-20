@@ -9,11 +9,17 @@
     <string name="label_legenda">Legenda Datas</string>
     <string name="label_disponivel">Disponível</string>
     <string name="label_reservada_paga">Reservada (Paga)</string>
-    <string name="label_reservada_nao_paga">Reservada (Não Paga)</string> 
+    <string name="label_reservada_nao_paga">Reservada (Não Paga)</string>
     <string name="label_selecionada">Selecionada</string>
-    <string name="label_manter_reserva">Manter Reserva</string>
+    <string name="label_incluir_reserva">Incluir Reserva</string>
+    <string name="label_editar_reserva">Editar Reserva</string>
     <string name="label_forma_pagamento">Formas de Pagamento:</string>
     <string name="label_status_pagamento">Status do Pagamento:</string>
+    <string name="label_confirmacao">Confirmação</string>
+    <string name="label_mensagem_cancelar">Esta reserva ainda não foi salva. Realmente deseja cancelar?</string>
+    <string name="label_mensagem_ok">Reserva salva com sucesso!</string>
+    <string name="label_mensagem_exclusao">Reserva excluída com sucesso!</string>
+    <string name="label_mensagem_excluir">Realmente deseja excluir esta reserva?</string>
     
     <string name="action_sobre">Sobre</string>
     <string name="action_entrar">Entrar</string>
@@ -22,6 +28,8 @@
     <string name="action_editar">Editar</string>
     <string name="action_excluir">Excluir</string>
     <string name="action_legendas">Legendas&#8230;</string>
+    <string name="action_salvar">Salvar</string>
+    <string name="action_cancelar">Cancelar</string>
     
     <string name="hint_cpf">CPF</string>
     <string name="hint_nome">Nome</string>
@@ -33,7 +41,7 @@
     <string name="radio_cheque">Cheque</string>
     <string name="radio_realizado">Realizado</string>
     <string name="radio_pendente">Pendente</string>
-    <string name="action_salvar">Salvar</string>
-    <string name="action_cancelar">Cancelar</string>
+    
+    <string name="erro_campo_obrigatorio">Preenchimento Obrigatório</string>
 
 </resources>

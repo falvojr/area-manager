@@ -3,17 +3,17 @@ package cleber.dias.areamanager.db;
 public enum FormaPagamentoEnum {
 	DINHEIRO(1, "Dinheiro"),
 	CHEQUE(2, "Cheque"),
-	DEPOSITO(3, "Depósito Bancário");
+	DEPOSITO(3, "Depósito");
 
-	private FormaPagamentoEnum(int id, String descricao) {
+	private FormaPagamentoEnum(Integer id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	private int id;
+	private Integer id;
 	private String descricao;
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 

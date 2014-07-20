@@ -1,20 +1,20 @@
 package cleber.dias.areamanager.db;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.Serializable;
 
 import android.annotation.SuppressLint;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Reserva {
+public class Reserva implements Serializable {
+
+	private static final long serialVersionUID = 3686641463767314326L;
 
 	@DatabaseField(generatedId = true)
 	long id;
-	@DatabaseField(canBeNull=false)
-	Date data;
 	@DatabaseField(canBeNull=false, index = true)
+	long data;
+	@DatabaseField(canBeNull=false)
 	long cpf;
 	@DatabaseField
 	String nome;
@@ -22,10 +22,10 @@ public class Reserva {
 	String endereco;
 	@DatabaseField(canBeNull=false)
 	String telefone;
-	@DatabaseField(dataType=DataType.INTEGER_OBJ)
-	FormaPagamentoEnum formaPagamento;
-	@DatabaseField(dataType=DataType.INTEGER_OBJ)
-	StatusPagamentoEnum statusPagamento;
+	@DatabaseField
+	Integer formaPagamento;
+	@DatabaseField(canBeNull=false, index = true)
+	int statusPagamento;
 
 	public Reserva() {
 		super();
@@ -39,11 +39,11 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Date getData() {
+	public long getData() {
 		return this.data;
 	}
 
-	public void setData(Date data) {
+	public void setData(long data) {
 		this.data = data;
 	}
 
@@ -79,19 +79,19 @@ public class Reserva {
 		this.telefone = telefone;
 	}
 
-	public FormaPagamentoEnum getFormaPagamento() {
+	public Integer getFormaPagamento() {
 		return this.formaPagamento;
 	}
 
-	public void setFormaPagamento(FormaPagamentoEnum formaPagamento) {
+	public void setFormaPagamento(Integer formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public StatusPagamentoEnum getStatusPagamento() {
+	public int getStatusPagamento() {
 		return this.statusPagamento;
 	}
 
-	public void setStatusPagamento(StatusPagamentoEnum statusPagamento) {
+	public void setStatusPagamento(int statusPagamento) {
 		this.statusPagamento = statusPagamento;
 	}
 
@@ -100,13 +100,13 @@ public class Reserva {
 	public String toString() {
 		StringBuilder sb = new StringBuilder()
 		.append("id=").append(this.id).append(", ")
-		.append("data=").append(new SimpleDateFormat("dd/MM/yyyy").format(this.data)).append(", ")
+		.append("data=").append(this.data).append(", ")
 		.append("cpf=").append(this.cpf).append(", ")
 		.append("nome=").append(this.nome).append(", ")
 		.append("endereco=").append(this.endereco).append(", ")
 		.append("telefone=").append(this.telefone).append(", ")
-		.append("formaPagamento=").append(this.formaPagamento == null ? null : this.formaPagamento.getId()).append(", ")
-		.append("statusPagamento=").append(this.statusPagamento == null ? null : this.statusPagamento.getId());
+		.append("formaPagamento=").append(this.formaPagamento).append(", ")
+		.append("statusPagamento=").append(this.statusPagamento);
 		return sb.toString();
 	}
 }

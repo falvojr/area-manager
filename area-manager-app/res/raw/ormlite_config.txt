@@ -11,10 +11,10 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=data
+indexName=reserva_data_idx
 # --field-end--
 # --field-start--
 fieldName=cpf
-indexName=reserva_cpf_idx
 # --field-end--
 # --field-start--
 fieldName=nome
@@ -30,6 +30,7 @@ fieldName=formaPagamento
 # --field-end--
 # --field-start--
 fieldName=statusPagamento
+indexName=reserva_status_pagamento_idx
 # --field-end--
 # --table-fields-end--
 # --table-end--
