@@ -24,9 +24,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import cleber.dias.areamanager.db.DatabaseHelper;
-import cleber.dias.areamanager.db.Reserva;
-import cleber.dias.areamanager.db.StatusPagamentoEnum;
+import cleber.dias.areamanager.app.db.DatabaseHelper;
+import cleber.dias.areamanager.app.model.Reserva;
+import cleber.dias.areamanager.app.model.enuns.StatusPagamentoEnum;
 
 import com.j256.ormlite.dao.Dao;
 import com.roomorama.caldroid.CaldroidFragment;

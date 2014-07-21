@@ -1,4 +1,4 @@
-package cleber.dias.areamanager.db;
+package cleber.dias.areamanager.app.model;
 
 import java.io.Serializable;
 

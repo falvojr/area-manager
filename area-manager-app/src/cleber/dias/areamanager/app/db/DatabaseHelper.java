@@ -1,4 +1,4 @@
-package cleber.dias.areamanager.db;
+package cleber.dias.areamanager.app.db;
 
 import java.sql.SQLException;
 
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import cleber.dias.areamanager.app.R;
+import cleber.dias.areamanager.app.model.Reserva;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;

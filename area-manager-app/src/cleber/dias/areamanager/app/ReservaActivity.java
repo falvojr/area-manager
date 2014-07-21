@@ -21,10 +21,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import cleber.dias.areamanager.db.DatabaseHelper;
-import cleber.dias.areamanager.db.FormaPagamentoEnum;
-import cleber.dias.areamanager.db.Reserva;
-import cleber.dias.areamanager.db.StatusPagamentoEnum;
+import cleber.dias.areamanager.app.db.DatabaseHelper;
+import cleber.dias.areamanager.app.model.Reserva;
+import cleber.dias.areamanager.app.model.enuns.FormaPagamentoEnum;
+import cleber.dias.areamanager.app.model.enuns.StatusPagamentoEnum;
 
 import com.j256.ormlite.dao.Dao;
 
