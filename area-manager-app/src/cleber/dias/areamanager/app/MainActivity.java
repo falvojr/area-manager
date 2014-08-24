@@ -10,26 +10,50 @@ import org.androidannotations.annotations.ViewById;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.TextView;
 import cleber.dias.areamanager.ext.TextViewEx;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
 public class MainActivity extends ActionBarActivity {
 
-	@ViewById(R.id.lblDescricaoApp)
-	protected TextViewEx txtDescricao;
+	public static final String EXTRA_EXIT = "EXIT";
+
+	@ViewById
+	protected TextViewEx lblDescricaoApp;
+
+	@ViewById
+	protected TextView lblVersao;
 
 	@AfterViews
 	void afterViews() {
+		if (this.getIntent().getBooleanExtra(EXTRA_EXIT, false)) {
+			this.finish();
+		}
 		// Justifica o texto de descrição do aplicativo:
-		this.txtDescricao.setText(this.getString(R.string.label_descricao_app), true);
+		this.lblDescricaoApp.setText(this.getString(R.string.label_descricao_app), true);
+
+		try {
+			String versao = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+			this.lblVersao.setText(String.format(super.getString(R.string.label_versao_app), versao));
+		} catch (NameNotFoundException e) { }
 	}
 
 	@Click(R.id.btnEntrar)
 	void actionEntrar() {
 		CalendarioActivity_.intent(this).start();
+	}
+
+	@Click(R.id.btnSair)
+	void actionSair() {
+		Intent intent = MainActivity_.intent(this).get();
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(EXTRA_EXIT, true);
+		this.startActivity(intent);
 	}
 
 	@SuppressLint("InflateParams")
@@ -47,5 +71,11 @@ public class MainActivity extends ActionBarActivity {
 				dialog.cancel();
 			}
 		}).create().show();
+	}
+
+	@Override
+	protected void onDestroy() {
+		android.os.Process.killProcess(android.os.Process.myPid());
+		super.onDestroy();
 	}
 }

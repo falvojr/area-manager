@@ -50,12 +50,11 @@
         android:width="125dp" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/lblVersao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/label_versao_app"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

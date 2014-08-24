@@ -21,6 +21,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -55,6 +56,53 @@ public class CalendarioActivity extends ActionBarActivity {
 	private CaldroidFragment caldroidFragment;
 
 	private Date dataSelecionada;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		this.caldroidFragment = new CaldroidFragment();
+
+		this.marcarReservasCalendario();
+
+		if (savedInstanceState != null) {
+			this.caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
+		} else {
+			Bundle args = new Bundle();
+			Calendar cal = Calendar.getInstance();
+			args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+			args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+			this.caldroidFragment.setArguments(args);
+
+			this.getSupportFragmentManager().beginTransaction().replace(R.id.calendario, this.caldroidFragment).commit();
+		}
+
+		this.caldroidFragment.setCaldroidListener(new AMCaldroidListener());
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		this.dataSelecionada = calendar.getTime();
+
+		this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_selecionada, this.dataSelecionada);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		if (this.caldroidFragment != null) {
+			this.caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		this.configurarVisibilidadeItensActionBar(this.dataSelecionada);
+		return super.onCreateOptionsMenu(menu);
+	}
 
 	@OptionsItem(R.id.action_incluir)
 	void actionIncluir() {
@@ -126,32 +174,6 @@ public class CalendarioActivity extends ActionBarActivity {
 		}
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		this.caldroidFragment = new CaldroidFragment();
-
-		this.marcarReservasCalendario();
-
-		if (savedInstanceState != null) {
-			this.caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
-		} else {
-			Bundle args = new Bundle();
-			Calendar cal = Calendar.getInstance();
-			args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-			args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-			this.caldroidFragment.setArguments(args);
-
-			this.getSupportFragmentManager().beginTransaction().replace(R.id.calendario, this.caldroidFragment).commit();
-		}
-
-		this.caldroidFragment.setCaldroidListener(new AMCaldroidListener());
-
-		this.dataSelecionada = new Date();
-		this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_selecionada, this.dataSelecionada);
-	}
-
 	private void marcarReservasCalendario() {
 		try {
 			HashMap<Date, Integer> mapaReservas = new HashMap<Date, Integer>();
@@ -172,16 +194,11 @@ public class CalendarioActivity extends ActionBarActivity {
 		}
 	}
 
-	/**
-	 * Save current states of the Caldroid here
-	 */
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-
-		if (this.caldroidFragment != null) {
-			this.caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
-		}
+	private void configurarVisibilidadeItensActionBar(Date date) {
+		Boolean isDisponivel = CalendarioActivity.this.buscarReservaPorData(date) == null;
+		CalendarioActivity.this.menuItemIncluir.setVisible(isDisponivel);
+		CalendarioActivity.this.menuItemEditar.setVisible(!isDisponivel);
+		CalendarioActivity.this.menuItemExcluir.setVisible(!isDisponivel);
 	}
 
 	private final class AMCaldroidListener extends CaldroidListener {
@@ -210,11 +227,7 @@ public class CalendarioActivity extends ActionBarActivity {
 				}
 			}
 
-			// Configura a visibilidade dos itens da ActionBar:
-			Boolean isDisponivel = CalendarioActivity.this.buscarReservaPorData(date) == null;
-			CalendarioActivity.this.menuItemIncluir.setVisible(isDisponivel);
-			CalendarioActivity.this.menuItemEditar.setVisible(!isDisponivel);
-			CalendarioActivity.this.menuItemExcluir.setVisible(!isDisponivel);
+			CalendarioActivity.this.configurarVisibilidadeItensActionBar(date);
 
 			// Marca o item selecionado:
 			CalendarioActivity.this.caldroidFragment.setBackgroundResourceForDate(R.color.areamanager_selecionada, date);

@@ -22,6 +22,12 @@ public class Reserva implements Serializable {
 	String endereco;
 	@DatabaseField(canBeNull=false)
 	String telefone;
+	@DatabaseField(canBeNull=false)
+	double valor;
+	@DatabaseField
+	String tipoEvento;
+	@DatabaseField
+	Long qtdPessoas;
 	@DatabaseField
 	Integer formaPagamento;
 	@DatabaseField(canBeNull=false, index = true)
@@ -95,6 +101,30 @@ public class Reserva implements Serializable {
 		this.statusPagamento = statusPagamento;
 	}
 
+	public double getValor() {
+		return this.valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	public String getTipoEvento() {
+		return this.tipoEvento;
+	}
+
+	public void setTipoEvento(String tipoEvento) {
+		this.tipoEvento = tipoEvento;
+	}
+
+	public Long getQtdPessoas() {
+		return this.qtdPessoas;
+	}
+
+	public void setQtdPessoas(Long qtdPessoas) {
+		this.qtdPessoas = qtdPessoas;
+	}
+
 	@SuppressLint("SimpleDateFormat")
 	@Override
 	public String toString() {
@@ -105,6 +135,9 @@ public class Reserva implements Serializable {
 		.append("nome=").append(this.nome).append(", ")
 		.append("endereco=").append(this.endereco).append(", ")
 		.append("telefone=").append(this.telefone).append(", ")
+		.append("valor=").append(this.valor).append(", ")
+		.append("tipoEvento=").append(this.tipoEvento).append(", ")
+		.append("qtdPessoas=").append(this.qtdPessoas).append(", ")
 		.append("formaPagamento=").append(this.formaPagamento).append(", ")
 		.append("statusPagamento=").append(this.statusPagamento);
 		return sb.toString();

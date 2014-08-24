@@ -5,20 +5,13 @@
     <LinearLayout style="@style/Form" >
 
         <TextView
-            android:id="@+id/lblTituloReserva"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <View style="@style/Separator" />
-
-        <TextView
             android:id="@+id/lblData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/txtCPF"
@@ -59,6 +52,33 @@
             android:inputType="phone"
             android:maxLength="100" />
 
+        <EditText
+            android:id="@+id/txtValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_valor"
+            android:inputType="numberDecimal"
+            android:maxLength="16" />
+        
+        <EditText
+            android:id="@+id/txtTipoEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_tipo_evento"
+            android:inputType="text"
+            android:maxLength="100" />
+        
+        <EditText
+            android:id="@+id/txtQtdPessoas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_qtd_pessoas"
+            android:inputType="number"
+            android:maxLength="18" />
+        
         <TextView
             android:id="@+id/lblFormasPagamento"
             android:layout_width="wrap_content"
@@ -123,21 +143,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="right"
             android:orientation="horizontal"
             android:paddingTop="15dp" >
 
             <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        		android:drawableLeft="@drawable/ic_voltar"
+        		android:gravity="center_vertical|center_horizontal|left"
+                android:text="@string/action_voltar" />
+            
+            <Button
                 android:id="@+id/btnSalvar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+        		android:drawableLeft="@drawable/ic_salvar"
+        		android:gravity="center_vertical|center_horizontal|left"
                 android:text="@string/action_salvar" />
-
-            <Button
-                android:id="@+id/btnCancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/action_cancelar" />
         </LinearLayout>
     </LinearLayout>
 

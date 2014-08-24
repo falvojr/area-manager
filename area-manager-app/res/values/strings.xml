@@ -2,8 +2,8 @@
 <resources>
 
     <string name="label_app">Area Manager</string>
-    <string name="label_descricao_app">Aplicativo Android para o gerenciamento de reservas de uma área de lazer. Este projeto será apresentado como Trabalho de Conclusão de Curso (TCC) do desenvolvedor, testador e meu ídolo Cleber Dias.</string>
-    <string name="label_versao_app">Versão 1.0</string>
+    <string name="label_descricao_app">Aplicativo Android para o gerenciamento de reservas de uma área de lazer. Este projeto será apresentado como Trabalho de Conclusão de Curso (TCC) do desenvolvedor, testador, engenheiro químico e meu ídolo Cleber Dias.</string>
+    <string name="label_versao_app">Versão %s</string>
     <string name="label_sobre">Sobre</string>
     <string name="label_descricao_sobre">Um aplicativo Android com o objetivo de gerenciar de forma simples e ágil reservas de áreas de lazer ou afins.\n\nCleber Dias e Venilton Júnior\nCopyright 2014 Liga da Zueira. Todos os direitos reservados.</string>
     <string name="label_legenda">Legenda Datas</string>
@@ -16,7 +16,7 @@
     <string name="label_forma_pagamento">Formas de Pagamento:</string>
     <string name="label_status_pagamento">Status do Pagamento:</string>
     <string name="label_confirmacao">Confirmação</string>
-    <string name="label_mensagem_cancelar">Esta reserva ainda não foi salva. Realmente deseja cancelar?</string>
+    <string name="label_mensagem_voltar">Realmente deseja voltar? Alterações não salvas serão perdidas.</string>
     <string name="label_mensagem_ok">Reserva salva com sucesso!</string>
     <string name="label_mensagem_exclusao">Reserva excluída com sucesso!</string>
     <string name="label_mensagem_excluir">Realmente deseja excluir esta reserva?</string>
@@ -29,12 +29,15 @@
     <string name="action_excluir">Excluir</string>
     <string name="action_legendas">Legendas&#8230;</string>
     <string name="action_salvar">Salvar</string>
-    <string name="action_cancelar">Cancelar</string>
+    <string name="action_voltar">Voltar</string>
     
     <string name="hint_cpf">CPF</string>
     <string name="hint_nome">Nome</string>
     <string name="hint_endereco">Endereço</string>
     <string name="hint_telefone">Telefone</string>
+    <string name="hint_valor">Valor</string>
+    <string name="hint_tipo_evento">Tipo de Evento</string>
+    <string name="hint_qtd_pessoas">Quantidade de Pessoas</string>
     
     <string name="radio_dinheiro">Dinheiro</string>
     <string name="radio_deposito">Depósito</string>

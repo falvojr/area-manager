@@ -27,6 +27,15 @@ fieldName=endereco
 fieldName=telefone
 # --field-end--
 # --field-start--
+fieldName=valor
+# --field-end--
+# --field-start--
+fieldName=tipoEvento
+# --field-end--
+# --field-start--
+fieldName=qtdPessoas
+# --field-end--
+# --field-start--
 fieldName=formaPagamento
 # --field-end--
 # --field-start--
