@@ -10,7 +10,6 @@ import org.androidannotations.annotations.ViewById;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -21,8 +20,6 @@ import cleber.dias.areamanager.ext.TextViewEx;
 @OptionsMenu(R.menu.main)
 public class MainActivity extends ActionBarActivity {
 
-	public static final String EXTRA_EXIT = "EXIT";
-
 	@ViewById
 	protected TextViewEx lblDescricaoApp;
 
@@ -31,9 +28,6 @@ public class MainActivity extends ActionBarActivity {
 
 	@AfterViews
 	void afterViews() {
-		if (this.getIntent().getBooleanExtra(EXTRA_EXIT, false)) {
-			this.finish();
-		}
 		// Justifica o texto de descrição do aplicativo:
 		this.lblDescricaoApp.setText(this.getString(R.string.label_descricao_app), true);
 
@@ -48,12 +42,15 @@ public class MainActivity extends ActionBarActivity {
 		CalendarioActivity_.intent(this).start();
 	}
 
+	@Click(R.id.btnRelatorios)
+	void actionRelatorios() {
+		RelatorioActivity_.intent(this).start();
+	}
+
 	@Click(R.id.btnSair)
 	void actionSair() {
-		Intent intent = MainActivity_.intent(this).get();
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra(EXTRA_EXIT, true);
-		this.startActivity(intent);
+		this.finish();
+		System.exit(0);
 	}
 
 	@SuppressLint("InflateParams")

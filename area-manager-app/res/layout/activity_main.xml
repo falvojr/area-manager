@@ -34,20 +34,30 @@
         android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/ic_entrar"
         android:gravity="center_vertical|center_horizontal|left"
-        android:text="@string/action_entrar"
-        android:width="125dp" />
+        android:text="@string/action_gerenciar"
+        android:width="155dp" />
+
+    <Button
+        android:id="@+id/btnRelatorios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnSair"
+        android:layout_below="@+id/btnEntrar"
+        android:drawableLeft="@drawable/ic_report"
+        android:gravity="center_vertical|center_horizontal|left"
+        android:text="@string/action_relatorios"
+        android:width="155dp" />
 
     <Button
         android:id="@+id/btnSair"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnEntrar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/btnEntrar"
+        android:layout_below="@+id/btnRelatorios"
         android:drawableLeft="@drawable/ic_sair"
-        android:gravity="left|center_vertical|center_horizontal"
+        android:gravity="center_vertical|center_horizontal|left"
         android:text="@string/action_sair"
-        android:width="125dp" />
+        android:width="155dp" />
 
     <TextView
         android:id="@+id/lblVersao"
