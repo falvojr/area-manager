@@ -20,6 +20,12 @@
     <string name="label_mensagem_ok">Reserva salva com sucesso!</string>
     <string name="label_mensagem_exclusao">Reserva excluída com sucesso!</string>
     <string name="label_mensagem_excluir">Realmente deseja excluir esta reserva?</string>
+    <string name="label_relatorio_mensal">Relatório Mesal</string>
+    <string name="label_relatorio_anual">Relatório Anual</string>
+    <string name="label_quantidade_de_reservas">Quantidade de Reservas: %s</string>
+    <string name="label_valor_recebido">Valor Recebido: %s</string>
+    <string name="label_valor_a_receber">Valor a Receber: %s</string>
+    <string name="label_valor_total">Valor Total: %s</string>
     <string name="action_sobre">Sobre</string>
     <string name="action_gerenciar">Gerenciar</string>
     <string name="action_sair">Sair</string>
@@ -60,11 +66,5 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
-        <string name="label_relatorio_mensal">Relatório Mesal</string>
-        <string name="label_relatorio_anual">Relatório Anual</string>
-        <string name="label_quantidade_de_reservas">Quantidade de Reservas: %s</string>
-        <string name="label_valor_recebido">Valor Recebido: %s</string>
-        <string name="label_valor_a_receber">Valor a Receber: %s</string>
-        <string name="label_valor_total">Valor Total: %s</string>
     
 </resources>
