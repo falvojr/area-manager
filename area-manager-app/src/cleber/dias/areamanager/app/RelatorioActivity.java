@@ -117,12 +117,14 @@ public class RelatorioActivity extends ActionBarActivity {
 	}
 
 	private void filtrarReservasPorMes(final int indiceMes) {
-		final Calendar calendar = Calendar.getInstance();
+		final Calendar calendarReserva = Calendar.getInstance();
+		final Calendar calendarDataAtual = Calendar.getInstance();
+		calendarDataAtual.setTime(new Date());
 		RelatorioActivity.this.reservasMes = ListUtils.select(RelatorioActivity.this.reservas, new Predicate<Reserva>() {
 			@Override
 			public boolean evaluate(Reserva reserva) {
-				calendar.setTime(new Date(reserva.getData()));
-				return calendar.get(Calendar.MONTH) == indiceMes;
+				calendarReserva.setTime(new Date(reserva.getData()));
+				return (calendarReserva.get(Calendar.MONTH) == indiceMes) && (calendarReserva.get(Calendar.MONTH) == calendarDataAtual.get(Calendar.MONTH));
 			}
 		});
 

@@ -20,7 +20,7 @@
     <string name="label_mensagem_ok">Reserva salva com sucesso!</string>
     <string name="label_mensagem_exclusao">Reserva excluída com sucesso!</string>
     <string name="label_mensagem_excluir">Realmente deseja excluir esta reserva?</string>
-    <string name="label_relatorio_mensal">Relatório Mesal</string>
+    <string name="label_relatorio_mensal">Relatório Mensal</string>
     <string name="label_relatorio_anual">Relatório Anual</string>
     <string name="label_quantidade_de_reservas">Quantidade de Reservas: %s</string>
     <string name="label_valor_recebido">Valor Recebido: %s</string>

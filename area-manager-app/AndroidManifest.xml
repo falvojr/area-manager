@@ -32,7 +32,6 @@
         </activity>
         <activity
             android:name=".RelatorioActivity_"
-            android:label="@string/title_activity_relatorio"
             android:parentActivityName=".MainActivity_" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
