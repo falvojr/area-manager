@@ -124,7 +124,7 @@ public class RelatorioActivity extends ActionBarActivity {
 			@Override
 			public boolean evaluate(Reserva reserva) {
 				calendarReserva.setTime(new Date(reserva.getData()));
-				return (calendarReserva.get(Calendar.MONTH) == indiceMes) && (calendarReserva.get(Calendar.MONTH) == calendarDataAtual.get(Calendar.MONTH));
+				return (calendarReserva.get(Calendar.MONTH) == indiceMes) && (calendarReserva.get(Calendar.YEAR) == calendarDataAtual.get(Calendar.YEAR));
 			}
 		});
 
